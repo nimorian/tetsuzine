@@ -4,8 +4,12 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
+    @search_form = SearchForm.new params[:search_form]
     @books = Book.all
-  end
+    if @search_form.q.present?
+      @books = @books.titled @search_form.q
+    end
+  end #index
 
   # GET /books/1
   # GET /books/1.json
@@ -69,6 +73,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :price)
+      params.require(:book).permit(:title, :price, :published_on)
     end
 end

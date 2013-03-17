@@ -1,11 +1,16 @@
 <h1>Listing books</h1>
 
+<%= form_for @search_form, url: books_path, html: {method: :get} do |f| %>
+  <%= f.search_field :q %>
+  <%= f.submit 'search' %>
+<% end %>
+
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Price</th>
-      <th></th>
+      <th>PublishedOn</th>
       <th></th>
       <th></th>
     </tr>
@@ -16,6 +21,7 @@
     <tr>
       <td><%= book.title %></td>
       <td><%= book.price %></td>
+      <td><%= book.published_on %></td>
       <td><%= link_to 'Show', book %></td>
       <td><%= link_to 'Edit', edit_book_path(book) %></td>
       <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
